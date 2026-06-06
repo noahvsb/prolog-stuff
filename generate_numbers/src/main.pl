@@ -4,8 +4,8 @@
 :- initialization(main, main).
 :- endif.
 
-% Load a module relative to this file, not the working directory.
-% Using just use_module/1 fails after compilation since the working directory may differ from the source directory.
+% Load a module relative to this file, not the working directory
+% Using just use_module/1 fails after compilation since the working directory may differ from the source directory
 load(Path) :-
     prolog_load_context(directory, Dir),
     atomic_list_concat([Dir, Path], Full),
@@ -25,6 +25,11 @@ main(Args) :- main(Args, _, default, 1, null).
 main([], Type, Mode, N, OutFile) :-
     nonvar(Type), !,
     entrypoint(Type, Mode, N, OutFile).
+
+% Invalid argument: type is required
+main([], Type, _, _, _) :-
+    var(Type), !,
+    handle_invalid_argument('no type was specified').
 
 % ---------------------
 % Handle arguments
@@ -59,15 +64,15 @@ main(['-o', OutFile | Args], Type, Mode, N, _) :- !,
 
 % Invalid argument: print usage
 main([IArg | _], _, _, _, _) :-
-    handle_invalid_argument(IArg, null).
+    handle_invalid_argument(IArg).
 
 % handle_invalid_argument(+IArg, +ExtraMessage)
-% Prints an error message, the usage and fails.
-handle_invalid_argument(IArg, ExtraMessage) :-
+% Prints an error message, the usage and fails
+handle_invalid_argument(IArg) :- handle_invalid_argument(IArg, null).
+handle_invalid_argument(IArg, ExtraMessage) :- !,
     write('Invalid argument: '), write(IArg), nl,
     print_extra_message(ExtraMessage), nl,
     usage,
-    !,
     fail.
 
 print_extra_message(null) :- !.

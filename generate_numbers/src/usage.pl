@@ -4,7 +4,7 @@
 %   Flags:
 %     -h  Show this help message
 %     -t  The type of number to generate:
-%           prime -- Numbers that can only be divided by 1 and itself.
+%           prime -- Numbers that can only be divided by 1 and itself
 %     -m  Runs a specific mode, the modes are:
 %           default -- prints all numbers and the total amount, this is the default (wow, unexpected)
 %           list    -- prints only the numbers
@@ -19,7 +19,7 @@ usage :-
     writeln('  Flags:'),
     writeln('    -h  Show this help message'),
     writeln('    -t  The type of number to generate:'),
-    writeln('          prime -- Numbers that can only be divided by 1 and itself.'),
+    writeln('          prime -- Numbers that can only be divided by 1 and itself'),
     writeln('    -m  Runs a specific mode, the modes are:'),
     writeln('          default -- prints all numbers and the total amount, this is the default (wow, unexpected)'),
     writeln('          list    -- prints only the numbers'),

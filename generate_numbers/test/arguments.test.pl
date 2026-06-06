@@ -25,25 +25,30 @@ test(n, [true]) :-
 % invalid arguments
 % --------------------
 
-test(unrecognized_flag, [fail]) :-
+test('no type provided', [fail]) :-
+    with_output_to(string(Output), main(['-n', '5'])),
+    once(sub_string(Output, _, _, _, 'Invalid argument: no type was specified')),
+    once(sub_string(Output, _, _, _, 'Usage:')).
+
+test('unrecognized flag', [fail]) :-
     with_output_to(string(Output), main(['-f'])),
     once(sub_string(Output, _, _, _, 'Invalid argument: -f')),
     once(sub_string(Output, _, _, _, 'Usage:')).
 
-test(invalid_type, [fail]) :-
+test('invalid type', [fail]) :-
     with_output_to(string(Output), main(['-t', '-h'])),
     once(sub_string(Output, _, _, _, 'Invalid argument: -h')),
     once(sub_string(Output, _, _, _, 'Invalid type')),
     once(sub_string(Output, _, _, _, 'Usage:')).
 
-test(invalid_mode, [fail]) :-
-    with_output_to(string(Output), main(['-m', 'test'])),
+test('invalid mode', [fail]) :-
+    with_output_to(string(Output), main(['-m', test, '-t', prime])),
     once(sub_string(Output, _, _, _, 'Invalid argument: test')),
     once(sub_string(Output, _, _, _, 'Invalid mode')),
     once(sub_string(Output, _, _, _, 'Usage:')).
 
-test(invalid_n, [fail]) :-
-    with_output_to(string(Output), main(['-n', '-m'])),
+test('invalid n', [fail]) :-
+    with_output_to(string(Output), main(['-t', prime, '-n', '-m'])),
     once(sub_string(Output, _, _, _, 'Invalid argument: -m')),
     once(sub_string(Output, _, _, _, 'Invalid N: should be a number and greater than 0')),
     once(sub_string(Output, _, _, _, 'Usage:')).
