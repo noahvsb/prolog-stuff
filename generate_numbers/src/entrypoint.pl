@@ -1,6 +1,6 @@
 :- module(entrypoint, [entrypoint/4]).
 
-:- use_module(primes).
+:- use_module(prime).
 
 % -----------
 % ENTRYPOINT
@@ -40,7 +40,7 @@ print_result(Type, default) :-
 print_result(_, list).
 print_result(Type, amount) :- print_count(Type).
 
-print_count(prime) :- aggregate_all(count, prime(_), C), writeln(C).
+print_count(prime) :- aggregate_all(count, prime_number(_), C), writeln(C).
 
 % ---------------
 % OUTPUT HELPERS
