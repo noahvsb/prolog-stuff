@@ -1,5 +1,7 @@
 # binary
 generate_numbers
 
-# output
+# output folders
 out
+.cache
+plots

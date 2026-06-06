@@ -10,4 +10,4 @@ Just a bit of prolog stuff I'm making for fun.
 
 ## underview
 
-![underview of a tiger shark](assets/underview-tiger-shark-21363694.webp)
+<img src="assets/underview-tiger-shark-21363694.webp" alt="plot 3" width="600">

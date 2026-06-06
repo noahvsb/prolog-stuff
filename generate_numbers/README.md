@@ -53,3 +53,17 @@ Usage: ./generate_numbers [-h] -t <type> [-m <mode>] [-n <N>] [-o <file>]
 | `all`   | `build` + `test`    |
 | `build` | compiles the binary |
 | `test`  | runs the tests      |
+
+### plot
+
+I quickly generated a script with AI to generate plots like this one:
+
+<img src="../assets/plot_3.png" alt="plot 3" width="600">
+
+You can run it with:
+
+```sh
+python3 plot.py [N]
+```
+
+THe N is the same as the one in the `generate_numbers` binary.
