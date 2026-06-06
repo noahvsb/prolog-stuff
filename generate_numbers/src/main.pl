@@ -15,42 +15,50 @@ load(Path) :-
 :- load('/entrypoint').
 
 % Set defaults
+%   type     -- uninstantiated, because there's no default, the type HAS to be provided
 %   mode     -- default
 %   N        -- 1
 %   out file -- null
-main(Args) :- main(Args, default, 1, null).
+main(Args) :- main(Args, _, default, 1, null).
 
-% Execute if no more arguments
-main([], Mode, N, OutFile) :- !,
-    entrypoint(Mode, N, OutFile).
+% Execute if there are no more arguments and Type is instantiated
+main([], Type, Mode, N, OutFile) :-
+    nonvar(Type), !,
+    entrypoint(Type, Mode, N, OutFile).
 
 % ---------------------
 % Handle arguments
 % ---------------------
 
 % -h
-main(['-h'|_], _, _, _) :- !,
+main(['-h'|_], _, _, _, _) :- !,
     usage.
 
+% -t
+main(['-t', Type | Args], _, Mode, N, OutFile) :- !,
+    type(Type)
+    -> main(Args, Type, Mode, N, OutFile)
+    ;  handle_invalid_argument(Mode, 'Invalid type').
+
 % -m
-main(['-m', Mode | Args], _, N, OutFile) :- !,
+main(['-m', Mode | Args], Type, _, N, OutFile) :- !,
     mode(Mode)
-    -> main(Args, Mode, N, OutFile)
+    -> main(Args, Type, Mode, N, OutFile)
     ;  handle_invalid_argument(Mode, 'Invalid mode').
 
 % -n
-main(['-n', N0 | Args], Mode, _, OutFile) :- !,
+main(['-n', N0 | Args], Type, Mode, _, OutFile) :- !,
     atom_number(N0, N),
     N > 0
-    ->  main(Args, Mode, N, OutFile)
+    ->  main(Args, Type, Mode, N, OutFile)
     ;   handle_invalid_argument(N0, 'Invalid N: should be a number and greater than 0').
 
 % -o
-main(['-o', OutFile | Args], Mode, N, _) :- !,
-    main(Args, Mode, N, OutFile).
+main(['-o', OutFile | Args], Type, Mode, N, _) :- !,
+    main(Args, Type, Mode, N, OutFile).
 
 % Invalid argument: print usage
-main([IArg | _], _, _, _) :-
+main([IArg | _], _, _, _, _) :-
     handle_invalid_argument(IArg, null).
 
 % handle_invalid_argument(+IArg, +ExtraMessage)

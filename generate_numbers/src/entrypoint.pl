@@ -1,4 +1,4 @@
-:- module(entrypoint, [entrypoint/3]).
+:- module(entrypoint, [entrypoint/4]).
 
 :- use_module(primes).
 
@@ -6,37 +6,41 @@
 % ENTRYPOINT
 % -----------
 
-% entrypoint(+Mode, +N, +OutFile)
+% entrypoint(+Type, +Mode, +N, +OutFile)
 % Entrypoint for the command.
-entrypoint(Mode, N, null) :- !,
-    generate_numbers(type(prime), Mode, N),
-    print_result(Mode).
-entrypoint(Mode, N, OutFile) :-
+entrypoint(Type, Mode, N, null) :- !,
+    generate_numbers(Type, Mode, N),
+    print_result(Type, Mode).
+entrypoint(Type, Mode, N, OutFile) :-
     init_output(OutFile, Output, Stream),
-    generate_numbers(type(prime), Mode, N),
-    print_result(Mode),
+    generate_numbers(Type, Mode, N),
+    print_result(Type, Mode),
     close_output(Output, Stream).
 
 % -----------------
 % GENERATE NUMBERS
 % -----------------
 
-generate_numbers(type(prime), Mode, N) :- generate_primes(Mode, N).
+generate_numbers(prime, Mode, N) :- generate_primes(Mode, N).
 
 % ----------------
 % PRINT RESULTS
 % ----------------
 
-% print_result(+Mode)
-% Prints the result depending on the mode:
-%   default -- prints "Total:" + the amount of numbers
+% print_result(+Type, +Mode)
+% Prints the result depending on the type and mode:
+%   default -- prints a total text + the amount of numbers
 %   list    -- prints nothing extra
-%   amount  -- prints the amount of numbers, without the "Total:"
-print_result(default) :- nl, write('Total: '), print_count(type(prime)).
-print_result(list).
-print_result(amount) :- print_count(type(prime)).
+%   amount  -- prints the amount of numbers, without the total text
+print_result(Type, default) :-
+    nl, write('Total amount of '),
+    write(Type),
+    write(' numbers: '),
+    print_count(Type).
+print_result(_, list).
+print_result(Type, amount) :- print_count(Type).
 
-print_count(type(prime)) :- aggregate_all(count, prime(_), C), writeln(C).
+print_count(prime) :- aggregate_all(count, prime(_), C), writeln(C).
 
 % ---------------
 % OUTPUT HELPERS
