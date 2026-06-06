@@ -6,7 +6,7 @@
 %     -m  Runs a specific mode, the modes are:
 %           default -- prints all primes, this is the default (wow, unexpected)
 %           amount  -- prints the amount of primes
-%     -n  Generate primes between 0 and 10^<N> (exclusive), default is 6
+%     -n  Generate primes between 0 and 10^<N> (exclusive), default is 1
 %     -o  Write output to <file> instead of stdout
 
 % Print usage information
@@ -17,7 +17,7 @@ usage :-
     writeln('    -m  Runs a specific mode, the modes are:'),
     writeln('          default -- prints all primes, this is the default (wow, unexpected)'),
     writeln('          amount  -- prints the amount of primes'),
-    writeln('    -n  Generate primes between 0 and 10^<N> (exclusive), default is 6'),
+    writeln('    -n  Generate primes between 0 and 10^<N> (exclusive), default is 1'),
     writeln('    -o  Write output to <file> instead of stdout').
 
 % all modes

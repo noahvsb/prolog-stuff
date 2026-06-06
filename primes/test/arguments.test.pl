@@ -7,17 +7,17 @@
 % --------------------
 
 test(none, [true]) :-
-    with_output_to(string(_), once(main([]))).
+    with_output_to(string(_), main([])).
 
 test(help, [true]) :-
     with_output_to(string(Output), main(['-h'])),
     once(sub_string(Output, _, _, _, 'Usage:')).
 
 test(mode, [true]) :-
-    with_output_to(string(_), once(main(['-m', amount]))).
+    with_output_to(string(_), main(['-m', amount])).
 
 test(n, [true]) :-
-    with_output_to(string(_), once(main(['-n', '3']))).
+    with_output_to(string(_), main(['-n', '3'])).
 
 % not testing -o since that means the test will create a new file, this is unwanted behaviour
 

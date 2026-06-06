@@ -16,9 +16,9 @@ load(Path) :-
 
 % Set defaults
 %   mode     -- default
-%   N        -- 6
+%   N        -- 1
 %   out file -- null
-main(Args) :- main(Args, default, 6, null).
+main(Args) :- main(Args, default, 1, null).
 
 % Execute if no more arguments
 main([], Mode, N, OutFile) :- !,
