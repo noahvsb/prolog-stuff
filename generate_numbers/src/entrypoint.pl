@@ -1,6 +1,7 @@
 :- module(entrypoint, [entrypoint/4]).
 
 :- use_module(prime).
+:- use_module(harshad).
 
 % -----------
 % ENTRYPOINT
@@ -28,6 +29,7 @@ core(Type, Mode, N) :-
 % retract_dynamic(+Type)
 % does a retractall on the dynamic corresponding with the type
 retract_dynamic(prime) :- retractall(prime_number(_)).
+retract_dynamic(harshad) :- retractall(harshad_number(_)).
 
 % generate_numbers(+Type)
 % Generates all numbers of a specific type between 0 and 10^N
@@ -37,6 +39,7 @@ generate_numbers(Type, Mode, N) :-
     forall(between(L, U, X), f(Type, Mode, X)).
 
 f(prime, Mode, X) :- f_prime(Mode, X).
+f(harshad, Mode, X) :- f_harshad(Mode, X).
 
 % print_result(+Type, +Mode)
 % Prints the result depending on the type and mode:
@@ -52,6 +55,7 @@ print_result(_, list).
 print_result(Type, amount) :- print_count(Type).
 
 print_count(prime) :- aggregate_all(count, prime_number(_), C), writeln(C).
+print_count(harshad) :- aggregate_all(count, harshad_number(_), C), writeln(C).
 
 % ---------------
 % OUTPUT HELPERS

@@ -1,6 +1,6 @@
 :- use_module('../src/entrypoint').
 
-:- begin_tests(primes).
+:- begin_tests(prime).
 
 test('default mode', [true(Output == "2\n3\n5\n7\n\nTotal amount of prime numbers: 4\n")]) :-
     with_output_to(string(Output), entrypoint(prime, default, 1, null)).
@@ -11,7 +11,7 @@ test('list mode', [true(Output == "2\n3\n5\n7\n")]) :-
 test('amount mode', [true(Output == "4\n")]) :-
     with_output_to(string(Output), entrypoint(prime, amount, 1, null)).
 
-:- end_tests(primes).
+:- end_tests(prime).
 
 :- run_tests.
 :- halt.

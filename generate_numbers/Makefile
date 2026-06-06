@@ -5,7 +5,7 @@ TEST_FILES := $(wildcard test/*.test.pl)
 build: build_primes
 
 build_primes:
-	swipl -o primes -c src/main.pl
+	swipl -o generate_numbers -c src/main.pl
 
 test:
 	@echo "Running tests"

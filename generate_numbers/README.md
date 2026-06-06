@@ -4,9 +4,10 @@ Generate all numbers of a type (e.g. prime, harshad) between 0 and 10^N.
 
 ## overview
 
-| Type   | Description                                       |
-| ------ | ------------------------------------------------- |
-| primes | Numbers that can only be divided by 1 and itself. |
+| Type    | Description                                               |
+| ------- | --------------------------------------------------------- |
+| prime   | Numbers that can only be divided by 1 and itself.         |
+| harshad | Numbers that are divisible by the sum of its own numbers. |
 
 ## instructions
 
@@ -28,22 +29,27 @@ make build
 ### usage (linux)
 
 ```sh
-$ ./primes -h
-Usage: primes [-h] [-m <mode>] [-n <N>] [-o <file>]
+$ ./generate_numbers -h
+Usage: ./generate_numbers [-h] -t <type> [-m <mode>] [-n <N>] [-o <file>]
   Flags:
     -h  Show this help message
+    -t  The type of number to generate:
+          prime   -- Numbers that can only be divided by 1 and itself
+          harshad -- Numbers that are divisible by the sum of its own numbers
     -m  Runs a specific mode, the modes are:
-          default -- prints all primes and the total amount, this is the default (wow, unexpected)
-          list    -- prints only the primes
-          amount  -- prints only the amount of primes
-    -n  Generate primes between 0 and 10^<N>, default is 1
+          default -- prints all numbers and the total amount, this is the default (wow, unexpected)
+          list    -- prints only the numbers
+          amount  -- prints only the amount of numbers
+    -n  Generate numbers between 0 and 10^<N>, default is 1
     -o  Write output to <file> instead of stdout
+  Note: the order of the flags doesn't matter
+
 ```
 
 ### Make targets
 
-| Target  | Description       |
-| ------- | ----------------- |
-| `all`   | `build` + `test`  |
-| `build` | builds the binary |
-| `test`  | runs the tests    |
+| Target  | Description         |
+| ------- | ------------------- |
+| `all`   | `build` + `test`    |
+| `build` | compiles the binary |
+| `test`  | runs the tests      |
