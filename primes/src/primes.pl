@@ -25,7 +25,6 @@ primes(Mode, N, OutFile) :-
 
 % generate_primes(+Mode, +N)
 % Generates all primes between 0 and 10^N and adds prime(P) facts for them.
-% If mode is default, prints the primes when adding them.
 generate_primes(Mode, N) :-
     retractall(prime(_)),
     L = 2,         % lower bound: smallest prime
@@ -40,9 +39,9 @@ check_and_add_prime(Mode, X) :-
 check_and_add_prime(_, _).
 
 % add_prime(+Mode, +P)
-% Adds prime(P) fact. If mode is default, prints P.
-add_prime(default, P) :- assertz(prime(P)), writeln(P).
-add_prime(amount, P) :- assertz(prime(P)).
+% Adds prime(P) fact. If mode is default or list, prints P.
+add_prime(amount, P) :- !, assertz(prime(P)).
+add_prime(_,      P) :- assertz(prime(P)), writeln(P).
 
 % has_prime_factor(+X)
 % Succeeds if X has a prime factor.
@@ -57,11 +56,14 @@ has_prime_factor(X) :-
 
 % print_result(+Mode)
 % Prints the result depending on the mode:
-%   default -- does nothing, the primes are printed at the time they are added, not at the end
-%   amount  -- prints the amount of primes
-print_result(default).
-print_result(amount) :-
-    aggregate_all(count, prime(_), C), writeln(C).
+%   default -- prints "Total:" + the amount of primes
+%   list    -- prints nothing extra
+%   amount  -- prints the amount of primes, without the "Total:"
+print_result(default) :- nl, write('Total: '), print_count.
+print_result(list).
+print_result(amount) :- print_count.
+
+print_count :- aggregate_all(count, prime(_), C), writeln(C).
 
 % ---------------
 % OUTPUT HELPERS
