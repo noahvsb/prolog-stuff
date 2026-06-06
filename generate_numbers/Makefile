@@ -2,7 +2,9 @@ TEST_FILES := $(wildcard test/*.test.pl)
 
 .PHONY all: build test
 
-build:
+build: build_primes
+
+build_primes:
 	swipl -o primes -c src/main.pl
 
 test:

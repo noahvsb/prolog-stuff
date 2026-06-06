@@ -12,7 +12,7 @@ load(Path) :-
     use_module(Full).
 
 :- load('/usage').
-:- load('/primes').
+:- load('/entrypoint').
 
 % Set defaults
 %   mode     -- default
@@ -22,7 +22,7 @@ main(Args) :- main(Args, default, 1, null).
 
 % Execute if no more arguments
 main([], Mode, N, OutFile) :- !,
-    primes(Mode, N, OutFile).
+    entrypoint(Mode, N, OutFile).
 
 % ---------------------
 % Handle arguments

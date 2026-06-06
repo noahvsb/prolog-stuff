@@ -1,23 +1,8 @@
-:- module(primes, [primes/3]).
+:- module(primes, [prime/1, generate_primes/2]).
 
 % prime(+P)
 % P is prime.
 :- dynamic prime/1.
-
-% -----------
-% ENTRYPOINT
-% -----------
-
-% primes(+Mode, +N, +OutFile)
-% Executes the primes command for the specific Mode and N, writing to stdout or an optional OutFile.
-primes(Mode, N, null) :- !,
-    generate_primes(Mode, N),
-    print_result(Mode).
-primes(Mode, N, OutFile) :-
-    init_output(OutFile, Output, Stream),
-    generate_primes(Mode, N),
-    print_result(Mode),
-    close_output(Output, Stream).
 
 % ----------------
 % GENERATE PRIMES
@@ -49,35 +34,3 @@ has_prime_factor(X) :-
     prime(P),
     P * P =< X, % check only the possible prime factors, which is up to sqrt(X)
     X mod P =:= 0.
-
-% ----------------
-% PRINT RESULTS
-% ----------------
-
-% print_result(+Mode)
-% Prints the result depending on the mode:
-%   default -- prints "Total:" + the amount of primes
-%   list    -- prints nothing extra
-%   amount  -- prints the amount of primes, without the "Total:"
-print_result(default) :- nl, write('Total: '), print_count.
-print_result(list).
-print_result(amount) :- print_count.
-
-print_count :- aggregate_all(count, prime(_), C), writeln(C).
-
-% ---------------
-% OUTPUT HELPERS
-% ---------------
-
-% init_output(+OutFile, -Output, -Stream)
-% Opens the OutFile and sets it as the current output, returns it and saves the previous Stream for restoration.
-init_output(OutFile, Output, Stream) :-
-    open(OutFile, write, Output),
-    current_output(Stream),
-    set_output(Output).
-
-% close_output(+Output, +Stream)
-% Closes the Output and restores the Stream.
-close_output(Output, Stream) :-
-    close(Output),
-    set_output(Stream).
