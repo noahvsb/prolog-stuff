@@ -6,7 +6,7 @@ Just a few prolog scripts I'm making for fun.
 
 | Script                     | Description                                          |
 | -------------------------- | ---------------------------------------------------- |
-| [primes](primes/README.md) | Calcalute all primes between 0 and 10^N (exclusive). |
+| [generate numbers](generate_numbers/README.md) | Generate all numbers of a type (e.g. prime, harshad) between 0 and 10^N. |
 
 ## underview
 
