@@ -5,8 +5,8 @@
 
 test(run, [true]) :-
     with_input([aba, bab, aca], with_output_to(string(Output), run('data/test.eda'))), % test EDA accepts words with alphabet {a,b} that end in a
-    aggregate_all(count, sub_string(Output, _, _, _, accepted), 1), % aba is accepted
-    aggregate_all(count, sub_string(Output, _, _, _, rejected), 2). % bab and aca are rejected
+    aggregate_all(count, sub_string(Output, _, _, _, accepted), 2), % aba and aca are accepted
+    aggregate_all(count, sub_string(Output, _, _, _, rejected), 1). % bab is rejected
 
 :- end_tests(run).
 

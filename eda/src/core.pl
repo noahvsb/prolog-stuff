@@ -20,4 +20,6 @@ check_word(Word) :-
 % eda_test(+Input, +Q)
 % Succeeds if the EDA accepts the input, starting at state Q
 eda_test([], Q) :- accepting(Q).
-eda_test([C | L], Q) :- transition(Q, C, P), eda_test(L, P).
+eda_test([C | L], Q) :- transition(Q, C, P), !, eda_test(L, P).
+% try the # transition if the transition isn't defined for C
+eda_test([_ | L], Q) :- transition(Q, '#', P), eda_test(L, P).

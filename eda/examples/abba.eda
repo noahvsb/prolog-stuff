@@ -1,4 +1,4 @@
-# accepts words with alfabet {a,b} containing abba
+# accepts words with alphabet {a,b} containing abba
 
 0$a$1
 0$b$0
