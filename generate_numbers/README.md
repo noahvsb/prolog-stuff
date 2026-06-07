@@ -43,7 +43,6 @@ Usage: ./generate_numbers [-h] -t <type> [-m <mode>] [-n <N>] [-o <file>]
     -n  Generate numbers between 0 and 10^<N>, default is 1
     -o  Write output to <file> instead of stdout
   Note: the order of the flags doesn't matter
-
 ```
 
 ### Make targets
