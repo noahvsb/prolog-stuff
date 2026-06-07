@@ -4,9 +4,7 @@
 :- begin_tests(arguments).
 
 test(valid, [true]) :-
-    with_input(['halt'],
-        with_output_to(string(_), main(['data/test.eda']))
-    ).
+    with_input([], with_output_to(string(_), main(['data/test.eda']))).
 
 test(help, [true]) :-
     with_output_to(string(Output), main(['-h'])),

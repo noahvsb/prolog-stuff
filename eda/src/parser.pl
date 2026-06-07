@@ -8,11 +8,19 @@
 parse_file(File, eda(T, A)) :-
     read_file_to_string(File, String, []),
     string_chars(String, Chars),
-    phrase(eda(T, A), Chars, _).
+    exclude([C]>>(C = '\r'), Chars, CleanChars),
+    phrase(eda(T, A), CleanChars, _).
 
 eda(T, A) -->
+    comments,
     transitions(T),
     accepting(A).
+
+comments --> ['#'], everything, newlines, !, comments.
+comments --> [].
+
+everything --> [C], { C \= '\n' }, !, everything.
+everything --> [].
 
 transitions([T|Ts]) -->
     transition(T), !,
@@ -20,10 +28,10 @@ transitions([T|Ts]) -->
 transitions([]) --> [].
 
 transition((Q, C, P)) -->
-    number(Q), ['$'], [C], ['$'], number(P), ws.
+    number(Q), ['$'], [C], ['$'], number(P), newlines.
 
 accepting([A|As]) -->
-    ['$'], number(A), ws, !,
+    ['$'], number(A), newlines, !,
     accepting(As).
 accepting([]) --> [].
 
@@ -36,6 +44,5 @@ digits([]) --> [].
 
 digit(D) --> [D], { char_type(D, digit) }.
 
-ws --> ['\r', '\n'], !.
-ws --> ['\n'], !.
-ws --> []. % EOF or just nothing
+newlines --> ['\n'], newlines.
+newlines --> [].

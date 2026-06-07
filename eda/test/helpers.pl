@@ -1,7 +1,7 @@
 :- module(helpers, [with_input/2]).
 
 with_input(InputList, Test) :-
-    % Convert inputs to lines like [abba, aabb, halt] to "abba.\naabb.\nhalt.\n"
+    % Convert inputs to lines like [abba, aabb] to "abba.\naabb.\n"
     maplist(format_line, InputList, Lines),
     atomic_list_concat(Lines, "", InputAtom),
 
