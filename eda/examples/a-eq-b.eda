@@ -1,0 +1,25 @@
+# the alphabet is {a,b}
+# it accepts words where the amount of a's is equal to the amount of b's (empty included)
+# to keep it a regular language, the difference between the amounts of a suffix of w can never be larger than 3
+# so for example: aaaabbbb is rejected, since the difference in suffix aaaa is 4
+
+0$a$1
+0$b$4
+
+1$a$2
+1$b$0
+
+2$a$3
+2$b$1
+
+3$b$2
+
+4$a$0
+4$b$5
+
+5$a$4
+5$b$6
+
+6$a$5
+
+$0

@@ -52,9 +52,9 @@ These 3 parts need to be in this exact order or it will fail. You can have as fe
 
 The `/examples` folder contains a few example .eda files.
 
-### `contains_abba.eda`
+### `abba.eda`
 
-This EDA accepts all words with alfabet {a,b} that contain "abba":
+This EDA accepts all words with alfabet {a,b} that contain "abba".
 
 ```sh
 $ ./eda examples/abba.eda 
@@ -68,3 +68,39 @@ rejected   # rejected, because c is not in the alfabet {a,b}
 accepted
 |: q.
 ```
+
+### `a-eq-b.eda`
+
+This EDA accepts all words with alfabet {a,b} where the amount of a's is equal to the amount of b's. However to keep it a regular language, the difference between the amounts of a suffix of w has to be bounded. For simplicity I have chosen 3 as the upper bound here, so "aaaabbbb" is rejected.
+
+```sh
+$ ./eda examples/a-eq-b.eda 
+|: abba.
+accepted
+|: aaaabbbb.              
+rejected
+|: aaabbb.
+accepted
+|: ababababababbababababa.
+accepted
+|: abc.
+rejected
+|: baa.
+rejected
+|: q.
+```
+
+## bugs
+
+- you can't test empty words:
+  ```sh
+  $ ./eda examples/abba.eda   
+  |: .
+
+  ERROR: /home/noahvsb/repo/prolog-stuff/eda/src/main.pl:4: main:main Stream user_input:0:4 Syntax error: Unexpected end of clause
+  ```
+- there's no validation on the .eda files, so there's probably some bugs there
+
+## TODO
+
+- add a wildcard character, so that if a transition doesn't exist for a character, it uses the wildcard transition
