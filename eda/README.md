@@ -122,7 +122,3 @@ rejected
   ERROR: /home/noahvsb/repo/prolog-stuff/eda/src/main.pl:4: main:main Stream user_input:0:4 Syntax error: Unexpected end of clause
   ```
 - there's no validation on the .eda files, so there's probably some bugs there
-
-## TODO
-
-- add a wildcard character, so that if a transition doesn't exist for a character, it uses the wildcard transition
